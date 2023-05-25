@@ -18,12 +18,14 @@ namespace Server
         {
 
             participants.Add(client);
+            Console.WriteLine("[{0}] Added client to room.", _id);
 
         }
         public void RemoveClient(Client client)
         {
 
             participants.Remove(client);
+            Console.WriteLine("[{0}] Removed client from room.", _id);
 
         }
 
@@ -42,7 +44,7 @@ namespace Server
         public Room(string id, Server serv) {
 
             this.theServer = serv;
-            
+
             if (theServer.RoomsDict.ContainsKey(id))
             {
                 bool emptyKeyFound = false;
@@ -57,7 +59,14 @@ namespace Server
                     }
                 }
             }
+            else
+            {
 
+                theServer.RoomsDict.Add(id, this);
+
+            }
+
+            Console.WriteLine("[{0}] Room created.", id);
 
             this._id = id;
 

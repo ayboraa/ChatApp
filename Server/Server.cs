@@ -70,6 +70,9 @@ namespace Server
 
             Console.WriteLine("A new client is connected.");
             // start reading.
+            DataPacket testPacket = new DataPacket();
+            testPacket.FunctionType = FunctionTypes.Test;
+            newClient.Message(testPacket);
             
             newClient.StartReading();
 

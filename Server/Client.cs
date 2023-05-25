@@ -48,25 +48,20 @@ namespace Server
 
         public void ChangeRoom(string roomID)
         {
-            if(roomID == null)
+            if(roomID == null && _roomID != null)
             {
+                Room theRoom = this._server.RoomsDict.GetValueOrDefault(_roomID, null);
 
-                try
+                if(theRoom != null)
                 {
-
-                    Room theRoom;
-                    this._server.RoomsDict.TryGetValue(roomID, out theRoom);
                     theRoom.RemoveClient(this);
-
-                }
-                finally
-                {
-
                     _roomID = null;
-
                 }
 
-               
+
+                DataPacket packet = new DataPacket();
+                packet.FunctionType = FunctionTypes.LeaveRoom;
+                this.Message(packet);
                 return;
 
             }

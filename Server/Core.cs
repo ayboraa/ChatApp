@@ -76,26 +76,18 @@ namespace Server
 
         }
 
-        private static bool LeaveRoom(Client client) {
-            bool isSuccessful = false;
+        private static void LeaveRoom(Client client) {
+            
+            client.ChangeRoom(null);
 
 
-            return isSuccessful;
         }
 
-        private static bool JoinRoom(Client client, string roomId) {
-            bool isSuccessful = false;
-
-
-            return isSuccessful;
+        private static void JoinRoom(Client client, string roomId) {
         }
 
-        private static bool ChatMessage(Client client, string msg)
+        private static void ChatMessage(Client client, string msg)
         {
-            bool isSuccessful = false;
-
-
-            return isSuccessful;
         }
 
     }

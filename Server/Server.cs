@@ -9,12 +9,15 @@ using System.Threading;
 
 namespace Server
 {
-    internal class Server
+    public class Server
     {
 
         private TcpListener _server;
         private bool _active;
         private List<Client> _clients = new List<Client>();
+
+
+        public Dictionary<string, Room> RoomsDict = new Dictionary<string, Room>();
 
 
 
@@ -62,15 +65,13 @@ namespace Server
 
         private async Task AddNewClient(TcpClient client) {
 
-            Client newClient = new Client(client);
+            Client newClient = new Client(client, this);
             _clients.Add(newClient);
 
             Console.WriteLine("A new client is connected.");
             // start reading.
             
             newClient.StartReading();
-
-
 
         }
 

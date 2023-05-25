@@ -10,11 +10,11 @@ namespace Server
     {
 
 
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
 
             Server mainServer = new Server();
-            mainServer.StartListening().GetAwaiter().GetResult();
+            await mainServer.StartListening();
 
         }
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "osy3IX2DSH19WOk/silYb+PqXtTFXywFXLWq1DqZ8h5VXIGtdLjhZC7C+YgJQqahTr5S5jxeBQtJBak/yzmNgw==",
+  "dgSpecHash": "T6FhBIFkzUKm+EeQZrESnzIIm4q1OchmVUchLfwEB2ImwT3O0bdTwSuVE38CXFZeaO3OtLB70BYWVBukPZiCNg==",
   "success": true,
-  "projectFilePath": "D:\\asoka\\vrojects\\P2PServer\\Server.csproj",
+  "projectFilePath": "D:\\asoka\\vrojects\\ChatApp\\Server\\Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\asoka\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],

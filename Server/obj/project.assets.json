@@ -61,11 +61,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\asoka\\vrojects\\P2PServer\\Server.csproj",
+      "projectUniqueName": "D:\\asoka\\vrojects\\ChatApp\\Server\\Server.csproj",
       "projectName": "Server",
-      "projectPath": "D:\\asoka\\vrojects\\P2PServer\\Server.csproj",
+      "projectPath": "D:\\asoka\\vrojects\\ChatApp\\Server\\Server.csproj",
       "packagesPath": "C:\\Users\\asoka\\.nuget\\packages\\",
-      "outputPath": "D:\\asoka\\vrojects\\P2PServer\\obj\\",
+      "outputPath": "D:\\asoka\\vrojects\\ChatApp\\Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\vs sdk\\NuGetPackages"

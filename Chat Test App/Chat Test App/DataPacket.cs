@@ -12,7 +12,7 @@ namespace Server
         CreateRoom,
         LeaveRoom,
         JoinRoom,
-        Connect,
+        Connect, 
         ChatMessage,
         Test
 

@@ -15,7 +15,7 @@ namespace Server
         Connect,
         ChatMessage,
         Test
-
+             
     };
 
     [Serializable]

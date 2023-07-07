@@ -150,7 +150,7 @@ namespace Server
                 int bytesRead;
 
                 String data = null;
-
+                  
 
                  while ((bytesRead = await myStream.ReadAsync(buffer, 0, buffer.Length, readCancel).ConfigureAwait(false)) != 0)
                  {

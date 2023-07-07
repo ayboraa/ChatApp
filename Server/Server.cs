@@ -67,7 +67,7 @@ namespace Server
 
             Client newClient = new Client(client, this);
             _clients.Add(newClient);
-
+              
             Console.WriteLine("A new client is connected.");
             // start reading.
             

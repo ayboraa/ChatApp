@@ -123,7 +123,7 @@ namespace Server
 
             if(curRoom != null)
             {
-               
+                
                 DataPacket packet = new DataPacket();
                 packet.FunctionType = FunctionTypes.ChatMessage;
                 packet.Data = msg;

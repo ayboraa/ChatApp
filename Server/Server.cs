@@ -45,7 +45,7 @@ namespace Server
                 {
                     Console.WriteLine("Waiting for client");
                     var newClient = await _server.AcceptTcpClientAsync().ConfigureAwait(false);
-                    AddNewClient(newClient);
+                    await AddNewClient(newClient);
 
 
                 }
@@ -70,9 +70,6 @@ namespace Server
 
             Console.WriteLine("A new client is connected.");
             // start reading.
-            DataPacket testPacket = new DataPacket();
-            testPacket.FunctionType = FunctionTypes.Test;
-            newClient.Message(testPacket);
             
             newClient.StartReading();
 

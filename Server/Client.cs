@@ -14,6 +14,7 @@ namespace Server
         private string _guid;
         private TcpClient _tClient;
         private string _roomID;
+        private Room _room;
         private Server _server;
 
         public DateTime LastMessage;
@@ -24,6 +25,7 @@ namespace Server
 
             _tClient = theClient;
             _roomID = null;
+            _room = null;
 
             _guid = null;
 
@@ -45,8 +47,15 @@ namespace Server
             return _server;
 
         }
+        
+        public Room GetRoom()
+        {
 
-        public void ChangeRoom(string roomID)
+            return _room;
+
+        }
+
+        public async Task ChangeRoom(string roomID)
         {
             if(roomID == null && _roomID != null)
             {
@@ -56,12 +65,13 @@ namespace Server
                 {
                     theRoom.RemoveClient(this);
                     _roomID = null;
+                    _room = null;
                 }
 
 
                 DataPacket packet = new DataPacket();
                 packet.FunctionType = FunctionTypes.LeaveRoom;
-                this.Message(packet);
+                await this.Message(packet);
                 return;
 
             }
@@ -78,6 +88,7 @@ namespace Server
 
                         theRoom.AddClient(this);
                         _roomID = theRoom.GetId();
+                        _room = theRoom;
 
                     }
                     else
@@ -86,7 +97,7 @@ namespace Server
                         theRoom = new Room(roomID, this.GetHost());
                         theRoom.AddClient(this);
                         _roomID = theRoom.GetId();
-
+                        _room = theRoom;
                     }
                     
                 }
@@ -95,13 +106,14 @@ namespace Server
                     Room newRoom = new Room(roomID, this.GetHost());
                     newRoom.AddClient(this);
                     _roomID = newRoom.GetId();
+                    _room = newRoom;
                 }
                 finally
                 {
                     DataPacket packet = new DataPacket();
                     packet.Data = _roomID;
                     packet.FunctionType = FunctionTypes.CreateRoom;
-                    this.Message(packet);
+                    await this.Message(packet);
 
                 }
                
@@ -111,12 +123,18 @@ namespace Server
 
         }
 
+        public static void CallbackFunc(IAsyncResult res)
+        {
+
+
+        }
+
         // to be tested
         public async Task Message(DataPacket packet) {
 
             string msg = JsonConvert.SerializeObject(packet);
             Byte[] bytes= Encoding.UTF8.GetBytes(msg);
-            _tClient.GetStream().BeginWrite(bytes, 0, bytes.Length, null, null);
+            _tClient.GetStream().BeginWrite(bytes, 0, bytes.Length, new AsyncCallback(CallbackFunc), null);
 
         }
 
@@ -136,13 +154,15 @@ namespace Server
 
                  while ((bytesRead = await myStream.ReadAsync(buffer, 0, buffer.Length, readCancel).ConfigureAwait(false)) != 0)
                  {
-
+                    
                     data = System.Text.Encoding.ASCII.GetString(buffer);
                     Console.WriteLine("Parsing data: " + data);
                     Core.ParseMessage(this, data);
 
-               
-                 }
+                    // clean it
+                    buffer = new byte[1024];
+
+                }
 
             }
 

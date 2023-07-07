@@ -1,0 +1,17 @@
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\bin\Debug\net6.0\Chat Test App.exe
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\bin\Debug\net6.0\Chat Test App.deps.json
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\bin\Debug\net6.0\Chat Test App.runtimeconfig.json
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\bin\Debug\net6.0\Chat Test App.dll
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\bin\Debug\net6.0\Chat Test App.pdb
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\Chat Test App.csproj.AssemblyReference.cache
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\Chat Test App.GeneratedMSBuildEditorConfig.editorconfig
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\Chat Test App.AssemblyInfoInputs.cache
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\Chat Test App.AssemblyInfo.cs
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\Chat Test App.csproj.CoreCompileInputs.cache
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\Chat Test App.csproj.CopyComplete
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\Chat Test App.dll
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\refint\Chat Test App.dll
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\Chat Test App.pdb
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\Chat Test App.genruntimeconfig.cache
+D:\asoka\vrojects\ChatApp\Chat Test App\Chat Test App\obj\Debug\net6.0\ref\Chat Test App.dll

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,13 +30,19 @@ namespace Server
 
         }
 
-        public void BroadcastMessage(DataPacket packet)
+        public async Task BroadcastMessage(DataPacket packet)
         {
 
-            participants.ForEach(e =>
+            participants.ForEach(async e =>
             {
-                if(e.GetClient().Connected)
-                    e.Message(packet);
+                
+
+                if (e.GetClient().Connected)
+                {
+                    Console.WriteLine("Sending message to clients: {0}", packet.Data);
+                    await e.Message(packet);
+                }
+                   
 
             });
 

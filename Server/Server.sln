@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server.csproj", "{E086F229-46E6-41F2-AA64-8A21C7E684FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server.csproj", "{24383750-D3E7-429C-B6DD-0181AA83A5BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat Test App", "..\Chat Test App\Chat Test App\Chat Test App.csproj", "{55707E69-2C05-4BE4-9203-B04140723793}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E086F229-46E6-41F2-AA64-8A21C7E684FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E086F229-46E6-41F2-AA64-8A21C7E684FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E086F229-46E6-41F2-AA64-8A21C7E684FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E086F229-46E6-41F2-AA64-8A21C7E684FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24383750-D3E7-429C-B6DD-0181AA83A5BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24383750-D3E7-429C-B6DD-0181AA83A5BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24383750-D3E7-429C-B6DD-0181AA83A5BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24383750-D3E7-429C-B6DD-0181AA83A5BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55707E69-2C05-4BE4-9203-B04140723793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55707E69-2C05-4BE4-9203-B04140723793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55707E69-2C05-4BE4-9203-B04140723793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55707E69-2C05-4BE4-9203-B04140723793}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DE21D616-CA00-492B-AC96-8D35EC5B568B}
+		SolutionGuid = {35F29967-60D3-46F9-B829-90CADC3DD616}
 	EndGlobalSection
 EndGlobal

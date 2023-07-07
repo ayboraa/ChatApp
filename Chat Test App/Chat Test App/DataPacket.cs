@@ -13,7 +13,8 @@ namespace Server
         LeaveRoom,
         JoinRoom,
         Connect,
-        ChatMessage
+        ChatMessage,
+        Test
 
     };
 

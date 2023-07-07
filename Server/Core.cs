@@ -8,42 +8,55 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Server
 {
     static class Core
     {
 
-        public static void ParseMessage(Client theClient, string msg) { 
-        
-            DataPacket newPack = JsonConvert.DeserializeObject<DataPacket>(msg);
+        public static void ParseMessage(Client theClient, string msg) {
 
-            switch (newPack.FunctionType)
+            try
             {
+                DataPacket newPack = new DataPacket();
+                newPack = JsonConvert.DeserializeObject<DataPacket>(msg);
 
-                case FunctionTypes.Connect:
-                    
-                    break;
-                case FunctionTypes.CreateRoom:
-                    Core.CreateRoom(theClient);
+                switch (newPack.FunctionType)
+                {
 
-                    break;
-                case FunctionTypes.LeaveRoom:
-                    Core.LeaveRoom(theClient);
-                    break;
-                case FunctionTypes.JoinRoom:
-                    string roomID = newPack.Data;
-                    Core.JoinRoom(theClient, roomID);
-                    break;
-                case FunctionTypes.ChatMessage:
-                    string message = newPack.Data;
-                    Core.ChatMessage(theClient, message);
-                    break;
-                default:
-                    Console.WriteLine("Unknown Message.");
-                    break;
+                    case FunctionTypes.Connect:
+
+                        break;
+                    case FunctionTypes.CreateRoom:
+                        Core.CreateRoom(theClient);
+
+                        break;
+                    case FunctionTypes.LeaveRoom:
+                        Core.LeaveRoom(theClient);
+                        break;
+                    case FunctionTypes.JoinRoom:
+                        string roomID = newPack.Data;
+                        Core.JoinRoom(theClient, roomID);
+                        break;
+                    case FunctionTypes.ChatMessage:
+                        string message = newPack.Data;
+                        Core.ChatMessage(theClient, message);
+                        break;
+                    default:
+                        Console.WriteLine("Unknown Message.");
+                        break;
+
+                }
 
             }
+            catch(Exception ex)
+            {
+
+                Debug.Write(ex.ToString());
+
+            }
+            
 
         }
 
@@ -84,10 +97,43 @@ namespace Server
         }
 
         private static void JoinRoom(Client client, string roomId) {
+
+            Room curRoom = client.GetRoom();
+
+            if(curRoom != null && curRoom.GetId() != roomId && roomId != null)
+            {
+                // TODO
+              //  DataPacket packet = new DataPacket();
+              //  packet.FunctionType = FunctionTypes.ChatMessage;
+              //  packet.Data = "A client has left the room.";
+              //  curRoom.BroadcastMessage(packet);
+                
+
+            }
+            client.ChangeRoom(roomId);
+
+
+
         }
 
         private static void ChatMessage(Client client, string msg)
         {
+
+            Room curRoom = client.GetRoom();
+
+            if(curRoom != null)
+            {
+               
+                DataPacket packet = new DataPacket();
+                packet.FunctionType = FunctionTypes.ChatMessage;
+                packet.Data = msg;
+                curRoom.BroadcastMessage(packet);
+               
+            }
+
+
+
+
         }
 
     }

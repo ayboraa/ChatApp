@@ -28,7 +28,7 @@ namespace Server
                 {
 
                     case FunctionTypes.Connect:
-
+                        Core.Connect(theClient);
                         break;
                     case FunctionTypes.CreateRoom:
                         Core.CreateRoom(theClient);
@@ -45,6 +45,8 @@ namespace Server
                         string message = newPack.Data;
                         Core.ChatMessage(theClient, message);
                         break;
+                    case FunctionTypes.Ping: // todo: check if ping is working
+
                     default:
                         isInvalid = true;
                         Console.WriteLine("Unknown Message.");
@@ -88,6 +90,15 @@ namespace Server
 
         }
 
+        private static void Connect(Client client) {
+
+            DataPacket packet = new DataPacket();
+            packet.FunctionType = FunctionTypes.Connect;
+            packet.ClientID = client.GetGUID();
+            client.Message(packet);
+
+        }
+        
         private static void CreateRoom(Client client) {
 
             Room newRoom = new Room(CreateRoomID(), client.GetHost());

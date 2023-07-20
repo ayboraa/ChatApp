@@ -204,6 +204,9 @@ namespace Server
                  while ((bytesRead = await myStream.ReadAsync(buffer, 0, buffer.Length, readCancel).ConfigureAwait(false)) != 0)
                  {
 
+                    if (IsDisposed)
+                        break;
+
 
                     data = System.Text.Encoding.ASCII.GetString(buffer);
                     Console.WriteLine("Parsing data: " + data);
@@ -227,6 +230,7 @@ namespace Server
 
         public void Dispose()
         {
+
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }

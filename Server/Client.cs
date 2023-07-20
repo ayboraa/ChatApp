@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    public class Client
+    public class Client : IDisposable
     {
         private string _guid;
         private TcpClient _tClient;
@@ -17,9 +17,50 @@ namespace Server
         private Room _room;
         private Server _server;
 
-        public DateTime LastMessage;
+        public long LastMessageTime;
+
+        private delegate void Del(int diff);
+        private Del ClientPingCheck;
+
+        protected bool IsDisposed { get; private set; }
+
+        public async void OnClientPingCheck(int diff)
+        {
+
+            if(diff >= 15000)
+            {
+                
+                this.ChangeRoom(null);
+                Console.WriteLine("Connection timed out. {0}", _guid);
+                // dispose client
+                await _server.RemoveClient(this);
+
+
+            }
+            else
+            {
+
+                this.LastMessageTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+            }
+
+        }
 
         private CancellationToken readCancel;
+
+        public async Task CheckPing()
+        {
+            while (true)
+            {
+
+                if (IsDisposed)
+                    break;
+
+                int diff = (int)(DateTimeOffset.Now.ToUnixTimeMilliseconds() - this.LastMessageTime);
+                OnClientPingCheck(diff);
+                await Task.Delay(3000);
+            }
+        }
 
         public Client(TcpClient theClient, Server theServer) {
 
@@ -27,9 +68,15 @@ namespace Server
             _roomID = null;
             _room = null;
 
-            _guid = null;
+            // used on clients
+            _guid = this.GetHashCode().ToString();
 
             _server = theServer;
+
+            LastMessageTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+            ClientPingCheck += OnClientPingCheck;
+
 
 
         }
@@ -55,13 +102,21 @@ namespace Server
 
         }
 
+        public string GetGUID()
+        {
+
+            return _guid;
+
+        }
+
         public async Task ChangeRoom(string roomID)
         {
             if(roomID == null && _roomID != null)
             {
                 Room theRoom = this._server.RoomsDict.GetValueOrDefault(_roomID, null);
 
-                if(theRoom != null)
+
+                if (theRoom != null)
                 {
                     theRoom.RemoveClient(this);
                     _roomID = null;
@@ -69,9 +124,6 @@ namespace Server
                 }
 
 
-                DataPacket packet = new DataPacket();
-                packet.FunctionType = FunctionTypes.LeaveRoom;
-                await this.Message(packet);
                 return;
 
             }
@@ -123,11 +175,7 @@ namespace Server
 
         }
 
-        public static void CallbackFunc(IAsyncResult res)
-        {
-
-
-        }
+        public static void CallbackFunc(IAsyncResult res){}
 
         // to be tested
         public async Task Message(DataPacket packet) {
@@ -140,6 +188,7 @@ namespace Server
 
 
         public async Task StartReading() {
+
 
             if (_tClient.Connected)
             {
@@ -154,7 +203,8 @@ namespace Server
 
                  while ((bytesRead = await myStream.ReadAsync(buffer, 0, buffer.Length, readCancel).ConfigureAwait(false)) != 0)
                  {
-                    
+
+
                     data = System.Text.Encoding.ASCII.GetString(buffer);
                     Console.WriteLine("Parsing data: " + data);
                     Core.ParseMessage(this, data);
@@ -169,5 +219,32 @@ namespace Server
 
         }
 
+        ~Client()
+        {
+            this.Dispose(false);
+        }
+
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.IsDisposed)
+            {
+                if (disposing)
+                {
+                    // Perform managed cleanup here.
+
+                }
+
+                // Perform unmanaged cleanup here.
+
+                this.IsDisposed = true;
+            }
+        }
     }
 }

@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 namespace Server
 {
 
-    public enum FunctionTypes { 
-    
+    public enum FunctionTypes
+    {
+
         CreateRoom,
         LeaveRoom,
         JoinRoom,
-        Connect, 
+        Connect,
         ChatMessage,
-        Test
+        Ping
 
     };
 
@@ -23,6 +24,7 @@ namespace Server
     {
         public FunctionTypes FunctionType { get; set; }
         public string? Data { get; set; }
+        public string? ClientID { get; set; }
 
     }
 }

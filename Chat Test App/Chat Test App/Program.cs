@@ -6,6 +6,16 @@ using System.Net.Sockets;
 public class TestApp
 {
 
+    public static async Task SendPing(TcpClient theClient)
+    {
+        while (true)
+        {
+            DataPacket pingPacket = new DataPacket();
+            pingPacket.FunctionType = FunctionTypes.Ping;
+            await Task.Delay(3000);
+        }
+    }
+
 
     public static async Task ReadThread(TcpClient client)
     {
@@ -37,6 +47,8 @@ public class TestApp
 
                 }
 
+
+
             }
 
 
@@ -66,8 +78,6 @@ public class TestApp
     public static async Task Main()
     {
 
-        
-        // TODO: ping server to detect disconnects
 
 
         TcpClient client = new TcpClient();
@@ -76,7 +86,6 @@ public class TestApp
         {
 
             string key = Console.ReadLine();
-
 
             if (key.Equals("c"))
             {
@@ -149,8 +158,8 @@ public class TestApp
                 }
 
             }
-
-
+            if (client.Connected)
+                SendPing(client);
 
         }
 

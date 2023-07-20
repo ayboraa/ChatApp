@@ -22,6 +22,8 @@ namespace Server
                 DataPacket newPack = new DataPacket();
                 newPack = JsonConvert.DeserializeObject<DataPacket>(msg);
 
+                bool isInvalid = false;
+
                 switch (newPack.FunctionType)
                 {
 
@@ -44,13 +46,17 @@ namespace Server
                         Core.ChatMessage(theClient, message);
                         break;
                     default:
+                        isInvalid = true;
                         Console.WriteLine("Unknown Message.");
                         break;
 
                 }
 
+                if(!isInvalid)
+                    theClient.LastMessageTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 Debug.Write(ex.ToString());
@@ -90,7 +96,8 @@ namespace Server
         }
 
         private static void LeaveRoom(Client client) {
-            
+
+
             client.ChangeRoom(null);
 
 
@@ -98,20 +105,7 @@ namespace Server
 
         private static void JoinRoom(Client client, string roomId) {
 
-            Room curRoom = client.GetRoom();
-
-            if(curRoom != null && curRoom.GetId() != roomId && roomId != null)
-            {
-                // TODO
-              //  DataPacket packet = new DataPacket();
-              //  packet.FunctionType = FunctionTypes.ChatMessage;
-              //  packet.Data = "A client has left the room.";
-              //  curRoom.BroadcastMessage(packet);
-                
-
-            }
             client.ChangeRoom(roomId);
-
 
 
         }
@@ -127,11 +121,10 @@ namespace Server
                 DataPacket packet = new DataPacket();
                 packet.FunctionType = FunctionTypes.ChatMessage;
                 packet.Data = msg;
+                packet.ClientID = client.GetGUID();
                 curRoom.BroadcastMessage(packet);
                
             }
-
-
 
 
         }

@@ -14,19 +14,53 @@ namespace Server
         private List<Client> participants = new List<Client>();
         private Server theServer;
         
-
+        
         public void AddClient(Client client)
         {
 
+
             participants.Add(client);
-            Console.WriteLine("[{0}] Added client to room.", _id);
+
+            DataPacket packet = new DataPacket();
+            packet.FunctionType = FunctionTypes.JoinRoom;
+            packet.ClientID = client.GetGUID();
+            this.BroadcastMessage(packet);
+
+
+            Console.WriteLine("[{0}] Added client to room. {1}", _id, client.GetGUID());
+
+
+            // give information about room to new client
+            DataPacket infoPacket = new DataPacket();
+            packet.FunctionType = FunctionTypes.JoinRoom;
+            
+            participants.ForEach(async e =>
+            {
+
+
+                if (e.GetClient().Connected)
+                {
+                    infoPacket.ClientID = e.GetGUID();
+                    client.Message(infoPacket);
+                }
+
+
+            });
+
 
         }
         public void RemoveClient(Client client)
         {
 
+            // let everyone say goodbye
+            DataPacket packet = new DataPacket();
+            packet.FunctionType = FunctionTypes.LeaveRoom;
+            packet.ClientID = client.GetGUID();
+            this.BroadcastMessage(packet);
+
+
             participants.Remove(client);
-            Console.WriteLine("[{0}] Removed client from room.", _id);
+            Console.WriteLine("[{0}] Removed client from room. {1}", _id, client.GetGUID());
 
         }
 
@@ -46,7 +80,7 @@ namespace Server
 
             });
 
-        } 
+        }  
 
         public Room(string id, Server serv) {
 

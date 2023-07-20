@@ -14,7 +14,7 @@ namespace Server
         JoinRoom,
         Connect,
         ChatMessage,
-        Test
+        Ping
              
     };
 
@@ -23,6 +23,7 @@ namespace Server
     {
         public FunctionTypes FunctionType { get; set; }
         public string? Data { get; set; }
+        public string? ClientID { get; set; } 
 
     }
 }

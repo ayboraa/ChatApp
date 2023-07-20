@@ -72,6 +72,16 @@ namespace Server
             // start reading.
             
             newClient.StartReading();
+            newClient.CheckPing();
+
+        }
+
+        public async Task RemoveClient(Client theClient) {
+
+            
+            _clients.Remove(theClient);
+            theClient.GetClient().Dispose();
+            theClient.Dispose();
 
         }
 

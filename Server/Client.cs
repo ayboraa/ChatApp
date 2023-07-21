@@ -208,7 +208,7 @@ namespace Server
                         break;
 
 
-                    data = System.Text.Encoding.ASCII.GetString(buffer);
+                    data = System.Text.Encoding.UTF8.GetString(buffer);
                     Console.WriteLine("Parsing data: " + data);
                     Core.ParseMessage(this, data);
 

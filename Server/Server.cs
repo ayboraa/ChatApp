@@ -23,9 +23,8 @@ namespace Server
 
         public Server()
         {
-            IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+            IPAddress localAddr = IPAddress.Any;
             _server = new TcpListener(localAddr, 13000);
-
         }
 
         public async Task StartListening()

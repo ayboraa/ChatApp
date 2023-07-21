@@ -6,8 +6,24 @@
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="0,0,-12,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="57*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Label x:Name="label1" Content="Connection: Waiting..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="30" Width="156"/>
+        <RichTextBox x:Name="chatBox" HorizontalAlignment="Left" Height="347" Margin="171,25,0,0" VerticalAlignment="Top" Width="587" IsReadOnly="True" Block.LineHeight="2" >
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button Content="Send" HorizontalAlignment="Left" Margin="695,378,0,0" VerticalAlignment="Top" Width="63" Click="Button_Click_1"/>
+        <TextBox x:Name="input1" HorizontalAlignment="Left" Margin="171,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="503" Height="20" KeyDown="OnKeyDownHandler" AutomationProperties.HelpText="Enter Message"/>
+        <Button Content="Create Room" HorizontalAlignment="Left" Height="35" Margin="49,370,0,0" VerticalAlignment="Top" Width="78" Click="Button_Click" RenderTransformOrigin="0.496,0.619"/>
+        <TextBox x:Name="rInput" HorizontalAlignment="Left" Margin="88,326,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="64" Height="28"/>
+        <Button Content="Join Room" HorizontalAlignment="Left" Margin="10,326,0,0" VerticalAlignment="Top" Height="28" Width="69" Click="Button_Click_2"/>
 
     </Grid>
 </Window>

@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Chat Test App/Chat Test App/bin/Debug/net6.0/linux-x64/publish
+/Chat Test App/Chat Test App/bin/Debug/net6.0/linux-x64
+/Chat Test App/Chat Test App/obj/Debug/net6.0/linux-x64
+/Server/bin/Debug/net6.0/linux-x64
+/Server/obj/Debug/net6.0/linux-x64

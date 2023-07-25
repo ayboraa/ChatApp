@@ -37,9 +37,8 @@ namespace Client
             Dispatcher.Invoke(() => UpdateConnectionStatus(isConnected));
         }
         
-        private void NetworkClient_MessageReceived(object sender, string msg, string id)
+        private void NetworkClient_MessageReceived(object sender, string msg)
         {
-            msg = String.Format("[{0}]{1}", id, msg);
             Dispatcher.Invoke(() => UpdateChatBox(msg));
         }
 

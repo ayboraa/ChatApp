@@ -47,6 +47,7 @@ namespace Server
                         break;
                     case FunctionTypes.Ping: // todo: check if ping is working
 
+                        break;
                     default:
                         isInvalid = true;
                         Console.WriteLine("Unknown Message.");
@@ -128,7 +129,6 @@ namespace Server
 
             if(curRoom != null)
             {
-                
                 DataPacket packet = new DataPacket();
                 packet.FunctionType = FunctionTypes.ChatMessage;
                 packet.Data = msg;

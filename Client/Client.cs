@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Threading;
 
 namespace Client
@@ -20,7 +21,7 @@ namespace Client
     {
         public delegate void ConnectionStatusChangedEventHandler(object sender, bool isConnected);
         public event ConnectionStatusChangedEventHandler ConnectionStatusChanged;
-        public delegate void MessageReceivedEventHandler(object sender, string msg, string id);
+        public delegate void MessageReceivedEventHandler(object sender, string msg);
         public event MessageReceivedEventHandler MessageReceieved;
 
 
@@ -65,7 +66,9 @@ namespace Client
                     case FunctionTypes.ChatMessage:
                         string message = newPack.Data;
                         clientID = newPack.ClientID;
-                        ChatMessage(message, clientID);
+                        // get nickname
+                        msg = String.Format("[{0}] {1}", clientID, message);
+                        ChatMessage(msg);
                         break;
                     case FunctionTypes.Ping:
 
@@ -95,6 +98,8 @@ namespace Client
             this.SetGUID(id);
             ConnectionStatusChanged?.Invoke(this, true);
 
+            this.ChatMessage("Your connection with server is established.");
+
         }
 
         private void CreateRoom(string id)
@@ -104,21 +109,44 @@ namespace Client
 
         private void LeaveRoom(string id)
         {
-            _roomID = null;
+
+            if (this._guid == id)
+            {
+                _roomID = null;
+
+                this.ChatMessage("You have left the room.");
+
+            }
+            else
+            {
+                // get nickname
+                this.ChatMessage(String.Format("{0} has left the room.", id));
+
+            }
 
         }
 
         private void JoinRoom(string roomId, string id)
         {
 
-           // _roomID = roomId;
+           if(this._guid == id)
+            {
+                // we joined
+                this.ChatMessage(String.Format("You have joined to room {0}.", roomId));
+
+            }
+            else
+            {
+                // get nickname
+                this.ChatMessage(String.Format("{0} has joined to your room.", id));
+
+            }
 
         }
 
-        private void ChatMessage(string msg, string id)
+        private void ChatMessage(string msg)
         {
-            MessageReceieved?.Invoke(this, msg, id);
-
+            MessageReceieved?.Invoke(this, msg);
         }
 
         public async Task SendMessage(DataPacket packet)
@@ -217,7 +245,7 @@ namespace Client
 
 
                     data = System.Text.Encoding.UTF8.GetString(buffer);
-                    Console.WriteLine("Parsing data: " + data);
+                    Console.WriteLine("Parsing data: " + data + "\n\n\n\n\n");
                     ParseMessage(data);
 
                     // clean it

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -131,44 +132,34 @@ namespace Server
 
             if(_roomID != roomID)
             {
-                try{
-
+                // try to find this room
+                try
+                {
                     Room theRoom;
                     bool roomFound = this._server.RoomsDict.TryGetValue(roomID, out theRoom);
+
                     if (roomFound)
                     {
-
                         theRoom.AddClient(this);
-                        _roomID = theRoom.GetId();
+                        _roomID = roomID;
                         _room = theRoom;
-
                     }
                     else
                     {
-
-                        theRoom = new Room(roomID, this.GetHost());
-                        theRoom.AddClient(this);
-                        _roomID = theRoom.GetId();
-                        _room = theRoom;
+                        throw new WarningException("Room couldn't found");
                     }
                     
                 }
-                catch (ArgumentNullException ex)
-                {
-                    Room newRoom = new Room(roomID, this.GetHost());
-                    newRoom.AddClient(this);
-                    _roomID = newRoom.GetId();
-                    _room = newRoom;
-                }
-                finally
-                {
-                    DataPacket packet = new DataPacket();
-                    packet.Data = _roomID;
-                    packet.FunctionType = FunctionTypes.CreateRoom;
-                    await this.Message(packet);
+                catch(Exception ex)
+                {   // tell client
+                    if(ex.GetType().Name == "WarningException")
+                    {
+
+
+                    }
 
                 }
-               
+
 
             }
               

@@ -21,9 +21,11 @@ namespace Server
 
             participants.Add(client);
 
+
             DataPacket packet = new DataPacket();
             packet.FunctionType = FunctionTypes.JoinRoom;
             packet.ClientID = client.GetGUID();
+            packet.Data = _id;
             this.BroadcastMessage(packet);
 
 
@@ -33,10 +35,11 @@ namespace Server
             // give information about room to new client
             DataPacket infoPacket = new DataPacket();
             packet.FunctionType = FunctionTypes.JoinRoom;
+            packet.Data = this._id;
             
             participants.ForEach(async e =>
             {
-
+                
 
                 if (e.GetClient().Connected)
                 {
